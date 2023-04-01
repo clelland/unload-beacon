@@ -2,15 +2,14 @@
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Page Unload Beacon</title>
+  <title>Pending Beacon</title>
   <meta content="UD" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-UD" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
-  <link href="http://wicg.github.io/unload-beacon/" rel="canonical">
-  <meta content="8e666908b9c63c58314f8be03afa5ffa4c35294c" name="document-revision">
+  <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
+  <link href="http://wicg.github.io/pending-beacon/" rel="canonical">
+  <meta content="00a1f78b42073aab11a5b63453ab1d62b001f70a" name="document-revision">
 <style>/* style-autolinks */
-
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -70,7 +69,8 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}</style>
+}
+</style>
 <style>/* style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
@@ -179,9 +179,9 @@ pre .property::before, pre .property::after {
     --outdated-shadow: red;
 
     --editedrec-bg: darkorange;
-}</style>
+}
+</style>
 <style>/* style-counters */
-
 body {
     counter-reset: example figure issue;
 }
@@ -208,9 +208,9 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
-}</style>
+}
+</style>
 <style>/* style-dfn-panel */
-
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
@@ -218,10 +218,10 @@ figcaption:not(.no-marker)::before {
 .dfn-panel {
     position: absolute;
     z-index: 35;
-    height: auto;
-    width: -webkit-fit-content;
-    width: fit-content;
+    width: 20em;
+    min-width: min-content;
     max-width: 300px;
+    height: auto;
     max-height: 500px;
     overflow: auto;
     padding: 0.5em 0.75em;
@@ -229,6 +229,7 @@ figcaption:not(.no-marker)::before {
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
@@ -251,7 +252,6 @@ figcaption:not(.no-marker)::before {
 .dfn-paneled { cursor: pointer; }
 </style>
 <style>/* style-issues */
-
 a[href].issue-return {
     float: right;
     float: inline-end;
@@ -261,7 +261,6 @@ a[href].issue-return {
 }
 </style>
 <style>/* style-md-lists */
-
 /* This is a weird hack for me not yet following the commonmark spec
    regarding paragraph and lists. */
 [data-md] > :first-child {
@@ -269,7 +268,8 @@ a[href].issue-return {
 }
 [data-md] > :last-child {
     margin-bottom: 0;
-}</style>
+}
+</style>
 <style>/* style-selflinks */
 
 :root {
@@ -296,6 +296,14 @@ a.self-link:hover {
 }
 .heading > a.self-link {
     font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
 }
 li > a.self-link {
     left: calc(-1 * (3.5rem - 26px) - 2em);
@@ -509,6 +517,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        which is quite common in practice... */
     img { background: white; }
 }
+
 @media (prefers-color-scheme: dark) {
     :root {
         --selflink-text: black;
@@ -523,6 +532,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
         --dfnpanel-text: var(--text);
     }
 }
+
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
 
@@ -589,16 +599,16 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
-   <h1 class="p-name no-ref" id="title">Page Unload Beacon</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2022-08-29">29 August 2022</time></p>
+   <h1 class="p-name no-ref" id="title">Pending Beacon</h1>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#UD">Unofficial Proposal Draft</a>, <time class="dt-updated" datetime="2023-04-01">1 April 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
      <dl>
       <dt>This version:
-      <dd><a class="u-url" href="http://wicg.github.io/unload-beacon/">http://wicg.github.io/unload-beacon/</a>
+      <dd><a class="u-url" href="http://wicg.github.io/pending-beacon/">http://wicg.github.io/pending-beacon/</a>
       <dt>Issue Tracking:
-      <dd><a href="https://github.com/WICG/unload-beacon/issues/">GitHub</a>
+      <dd><a href="https://github.com/WICG/pending-beacon/issues/">GitHub</a>
       <dd><a href="#issues-index">Inline In Spec</a>
       <dt class="editor">Editor:
       <dd class="editor p-author h-card vcard"><span class="p-name fn">Ian Clelland</span> (<span class="p-org org">Google</span>)
@@ -606,7 +616,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2022 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -621,7 +631,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 	A list of current W3C publications
 	and the latest revision of this technical report
 	can be found in the <a href="https://www.w3.org/TR/">W3C technical reports index at https://www.w3.org/TR/.</a></em> </p>
-   <p><a href="https://github.com/WICG/unload-beacon/issues">GitHub Issues</a> are preferred for discussion of this specification. </p>
+   <p><a href="https://github.com/WICG/pending-beacon/issues">GitHub Issues</a> are preferred for discussion of this specification. </p>
    <p>This document is governed by the <a href="https://www.w3.org/2021/Process-20211102/" id="w3c_process_revision">2 November 2021 W3C Process Document</a>. </p>
    <p>This document was produced by a group operating under the <a href="https://www.w3.org/Consortium/Patent-Policy/">W3C Patent Policy</a>.
 	W3C maintains a <a href="https://www.w3.org/groups/wg/webperf/ipr" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group;
@@ -687,7 +697,7 @@ which is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#boolean"
    <p>A <a data-link-type="dfn" href="#pending-beacon" id="ref-for-pending-beacon⑤">pending beacon</a> has a <dfn class="dfn-paneled" data-dfn-for="pending beacon" data-dfn-type="dfn" data-noexport id="pending-beacon-payload">payload</dfn>, which is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence" id="ref-for-byte-sequence">byte sequence</a>.  It is initially empty.</p>
    <p>A <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-concept-document">Document</a> has a <dfn class="dfn-paneled" data-dfn-for="Document" data-dfn-type="dfn" data-noexport id="document-pending-beacon-set">pending beacon set</dfn>, which is an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set">ordered set</a> of <a data-link-type="dfn" href="#pending-beacon" id="ref-for-pending-beacon⑥">pending beacons</a>.</p>
    <p class="issue" id="issue-fdb03e89"><a class="self-link" href="#issue-fdb03e89"></a> Add worker beacons as well?</p>
-   <p class="note" role="note"><span>Note:</span> In this spec, the <a data-link-type="dfn" href="#document-pending-beacon-set" id="ref-for-document-pending-beacon-set">pending beacon set</a> is associated with a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-concept-document①">Document</a>.
+   <p class="note" role="note"><span class="marker">Note:</span> In this spec, the <a data-link-type="dfn" href="#document-pending-beacon-set" id="ref-for-document-pending-beacon-set">pending beacon set</a> is associated with a <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-concept-document①">Document</a>.
 In an actual implementation, this set will likely need to be stored in the user
 agent, separate from the document itself, in order to be able to send beacons
 when the document is destroyed (either by being unloaded, or because of a crash).</p>
@@ -748,13 +758,13 @@ when the document is destroyed (either by being unloaded, or because of a crash)
    </div>
    <div class="algorithm" data-algorithm="cancel" data-algorithm-for="pending beacon">
      To <dfn class="dfn-paneled" data-dfn-for="pending beacon" data-dfn-type="dfn" data-noexport id="pending-beacon-cancel">cancel</dfn> a <a data-link-type="dfn" href="#pending-beacon" id="ref-for-pending-beacon⑦">pending beacon</a> <var>beacon</var>, set <var>beacon</var>’s <a data-link-type="dfn" href="#pending-beacon-is_pending" id="ref-for-pending-beacon-is_pending④">is_pending</a> to false. 
-    <p class="note" role="note"><span>Note:</span> Once canceled, a <a data-link-type="dfn" href="#pending-beacon" id="ref-for-pending-beacon⑧">pending beacon</a>'s payload will no longer be used,
+    <p class="note" role="note"><span class="marker">Note:</span> Once canceled, a <a data-link-type="dfn" href="#pending-beacon" id="ref-for-pending-beacon⑧">pending beacon</a>'s payload will no longer be used,
   and it is safe for a user agent to discard that, and to cancel any associated
   timers. However, other attributes may still be read, and so this algorithm
   does not destroy the beacon itself.</p>
    </div>
    <h3 class="heading settled" data-level="2.3" id="sending-beacons"><span class="secno">2.3. </span><span class="content">Sending beacons</span><a class="self-link" href="#sending-beacons"></a></h3>
-   <p class="note" role="note"><span>Note:</span> This is written as though Fetch were used as the underlying mechanism.
+   <p class="note" role="note"><span class="marker">Note:</span> This is written as though Fetch were used as the underlying mechanism.
 However, since these are sent out-of-band, an implementation might not use the
 actual web-exposed Fetch API, and may instead use the underlying HTTP primitives
 directly.</p>
@@ -839,7 +849,7 @@ here, and this should integrate with the permissions API.</p>
         <p>headerList</p>
        <dt data-md>origin
        <dd data-md>
-        <p>The <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object" id="ref-for-entry-settings-object②">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin">origin</a></p>
+        <p>The <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object" id="ref-for-entry-settings-object②">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-concept-origin">origin</a></p>
        <dt data-md>keep-alive flag
        <dd data-md>
         <p>true</p>
@@ -861,9 +871,9 @@ here, and this should integrate with the permissions API.</p>
     <p class="issue" id="issue-df3133ed"><a class="self-link" href="#issue-df3133ed"></a> headerList is not defined.</p>
    </div>
    <h2 class="heading settled" data-level="3" id="integration"><span class="secno">3. </span><span class="content">Integration with HTML</span><a class="self-link" href="#integration"></a></h2>
-   <p class="note" role="note"><span>Note:</span> The following sections modify the <a data-link-type="biblio" href="#biblio-html">[HTML]</a> standard to enable sending of
+   <p class="note" role="note"><span class="marker">Note:</span> The following sections modify the <a data-link-type="biblio" href="#biblio-html" title="HTML Standard">[HTML]</a> standard to enable sending of
 beacons automatically by the user agent. These should be removed from this spec
-as appropriate changes are made to <a data-link-type="biblio" href="#biblio-html">[HTML]</a>.</p>
+as appropriate changes are made to <a data-link-type="biblio" href="#biblio-html" title="HTML Standard">[HTML]</a>.</p>
    <p>When a document with a non-empty <a data-link-type="dfn" href="#document-pending-beacon-set" id="ref-for-document-pending-beacon-set②">pending beacon set</a> is to be discarded, <a data-link-type="dfn" href="#send-a-documents-beacons" id="ref-for-send-a-documents-beacons">send the document’s pending beacons</a>.</p>
    <p class="issue" id="issue-b8b038f0"><a class="self-link" href="#issue-b8b038f0"></a> "discarded" is not well defined.</p>
    <p>When a process hosting a document with a non-empty <a data-link-type="dfn" href="#document-pending-beacon-set" id="ref-for-document-pending-beacon-set③">pending beacon set</a> crashes, <a data-link-type="dfn" href="#send-a-documents-beacons" id="ref-for-send-a-documents-beacons①">send the document’s pending beacons</a>.</p>
@@ -877,17 +887,17 @@ as appropriate changes are made to <a data-link-type="biblio" href="#biblio-html
       <p>Let <var>timeout</var> be <var>beacon</var>’s <a data-link-type="dfn" href="#pending-beacon-background-timeout" id="ref-for-pending-beacon-background-timeout①">background timeout</a>.</p>
      <li data-md>
       <p>If <var>timeout</var> is not null, start a timer to run a task in <var>timeout</var> ms.</p>
-      <p class="note" role="note"><span>Note:</span> The user agent may choose to coalesce multiple timers in order to send
+      <p class="note" role="note"><span class="marker">Note:</span> The user agent may choose to coalesce multiple timers in order to send
 multiple beacons at the same time.</p>
      <li data-md>
       <p>When the timer expires, call <a data-link-type="dfn" href="#send-a-queued-pending-beacon" id="ref-for-send-a-queued-pending-beacon①">send a queued pending beacon</a> with <var>beacon</var>.</p>
-      <p class="note" role="note"><span>Note:</span> The pending beacons may have been sent before this time, in cases
+      <p class="note" role="note"><span class="marker">Note:</span> The pending beacons may have been sent before this time, in cases
 where the document is unloaded, or its hosting process crashes before the
 timer fires. In that case, if the user agent still reaches this step, then
 the beacons will not be sent again, as their <a data-link-type="dfn" href="#pending-beacon-is_pending" id="ref-for-pending-beacon-is_pending⑦">is_pending</a> flag will be false.</p>
     </ol>
     <p class="issue" id="issue-fa8ec208"><a class="self-link" href="#issue-fa8ec208"></a> "visibility state change" should be more specific here, and should refer
-to specific steps in either <a data-link-type="biblio" href="#biblio-page-visibility">[PAGE-VISIBILITY]</a> or <a data-link-type="biblio" href="#biblio-html">[HTML]</a></p>
+to specific steps in either <a data-link-type="biblio" href="#biblio-page-visibility" title="Page Visibility (Second Edition)">[PAGE-VISIBILITY]</a> or <a data-link-type="biblio" href="#biblio-html" title="HTML Standard">[HTML]</a></p>
     <p class="issue" id="issue-395f3e6b"><a class="self-link" href="#issue-395f3e6b"></a> This should also disable any foreground timers for the document’s beacons,
 and there should be a step to reinstate them if the document becomes visible
 again before they are sent.</p>
@@ -919,7 +929,7 @@ again before they are sent.</p>
 <c- b>interface</c-> <dfn class="idl-code" data-dfn-type="interface" data-export id="pendinggetbeacon"><code><c- g>PendingGetBeacon</c-></code><a class="self-link" href="#pendinggetbeacon"></a></dfn> : <a data-link-type="idl-name" href="#pendingbeacon" id="ref-for-pendingbeacon"><c- n>PendingBeacon</c-></a> {
     <a class="idl-code" data-link-type="constructor" href="#dom-pendinggetbeacon-pendinggetbeacon" id="ref-for-dom-pendinggetbeacon-pendinggetbeacon"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①"><c- b>USVString</c-></a> <dfn class="idl-code" data-dfn-for="PendingGetBeacon/PendingGetBeacon(url, options), PendingGetBeacon/constructor(url, options), PendingGetBeacon/PendingGetBeacon(url), PendingGetBeacon/constructor(url)" data-dfn-type="argument" data-export id="dom-pendinggetbeacon-pendinggetbeacon-url-options-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-pendinggetbeacon-pendinggetbeacon-url-options-url"></a></dfn>, <c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-pendingbeaconoptions" id="ref-for-dictdef-pendingbeaconoptions"><c- n>PendingBeaconOptions</c-></a> <dfn class="idl-code" data-dfn-for="PendingGetBeacon/PendingGetBeacon(url, options), PendingGetBeacon/constructor(url, options), PendingGetBeacon/PendingGetBeacon(url), PendingGetBeacon/constructor(url)" data-dfn-type="argument" data-export id="dom-pendinggetbeacon-pendinggetbeacon-url-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-pendinggetbeacon-pendinggetbeacon-url-options-options"></a></dfn> = {});
 
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined②"><c- b>undefined</c-></a> <a class="idl-code" data-link-type="method" href="#dom-pendinggetbeacon-seturl" id="ref-for-dom-pendinggetbeacon-seturl"><c- g>setUrl</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②"><c- b>USVString</c-></a> <dfn class="idl-code" data-dfn-for="PendingGetBeacon/setUrl(url)" data-dfn-type="argument" data-export id="dom-pendinggetbeacon-seturl-url-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-pendinggetbeacon-seturl-url-url"></a></dfn>);
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined②"><c- b>undefined</c-></a> <a class="idl-code" data-link-type="method" href="#dom-pendinggetbeacon-seturl" id="ref-for-dom-pendinggetbeacon-seturl"><c- g>setURL</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②"><c- b>USVString</c-></a> <dfn class="idl-code" data-dfn-for="PendingGetBeacon/setURL(url)" data-dfn-type="argument" data-export id="dom-pendinggetbeacon-seturl-url-url"><code><c- g>url</c-></code><a class="self-link" href="#dom-pendinggetbeacon-seturl-url-url"></a></dfn>);
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->, <c- n>Worker</c->)]
@@ -1036,8 +1046,8 @@ again before they are sent.</p>
       <p>Call <a data-link-type="dfn" href="#send-a-queued-pending-beacon" id="ref-for-send-a-queued-pending-beacon②">send a queued pending beacon</a> with <var>beacon</var>.</p>
     </ol>
    </div>
-   <div class="algorithm" data-algorithm="setUrl(url)" data-algorithm-for="PendingGetBeacon">
-     The <dfn class="dfn-paneled idl-code" data-dfn-for="PendingGetBeacon" data-dfn-type="method" data-export id="dom-pendinggetbeacon-seturl"><code>setUrl(<var>url</var>)</code></dfn> steps are: 
+   <div class="algorithm" data-algorithm="setURL(url)" data-algorithm-for="PendingGetBeacon">
+     The <dfn class="dfn-paneled idl-code" data-dfn-for="PendingGetBeacon" data-dfn-type="method" data-export id="dom-pendinggetbeacon-seturl"><code>setURL(<var>url</var>)</code></dfn> steps are: 
     <ol>
      <li data-md>
       <p>Let <var>beacon</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①③">this</a>'s <a data-link-type="dfn" href="#pendingbeacon-beacon" id="ref-for-pendingbeacon-beacon①②">beacon</a>.</p>
@@ -1095,7 +1105,7 @@ prescribed mitigations.</p>
     However, for readability,
     these words do not appear in all uppercase letters in this specification. </p>
    <p>All of the text of this specification is normative
-    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p>
    <p>Examples in this specification are introduced with the words “for example”
     or are set apart from the normative text
     with <code>class="example"</code>,
@@ -1184,7 +1194,7 @@ prescribed mitigations.</p>
    <li><a href="#pending-beacon-set-the-foreground-timeout">set the foreground timeout</a><span>, in § 2.2</span>
    <li><a href="#pending-beacon-set-the-payload">set the payload</a><span>, in § 2.2</span>
    <li><a href="#pending-beacon-set-the-url">set the url</a><span>, in § 2.2</span>
-   <li><a href="#dom-pendinggetbeacon-seturl">setUrl(url)</a><span>, in § 4</span>
+   <li><a href="#dom-pendinggetbeacon-seturl">setURL(url)</a><span>, in § 4</span>
    <li>
     timeout
     <ul>
@@ -1198,175 +1208,175 @@ prescribed mitigations.</p>
      <li><a href="#pending-beacon-url">dfn for pending beacon</a><span>, in § 2.1</span>
     </ul>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-concept-document">
-   <a href="https://dom.spec.whatwg.org/#concept-document">https://dom.spec.whatwg.org/#concept-document</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-985c42e2af63b3e74bd3b70d55668fd4" class="dfn-panel" data-for="985c42e2af63b3e74bd3b70d55668fd4" id="infopanel-for-985c42e2af63b3e74bd3b70d55668fd4">
+   <span id="infopaneltitle-for-985c42e2af63b3e74bd3b70d55668fd4" style="display:none">Info about the 'document' external reference.</span><a href="https://dom.spec.whatwg.org/#concept-document">https://dom.spec.whatwg.org/#concept-document</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-document">2.1. Concepts</a> <a href="#ref-for-concept-document①">(2)</a>
     <li><a href="#ref-for-concept-document②">3. Integration with HTML</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-body-with-type">
-   <a href="https://fetch.spec.whatwg.org/#body-with-type">https://fetch.spec.whatwg.org/#body-with-type</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4a685d330d4a7ece89510c32ef166f17" class="dfn-panel" data-for="4a685d330d4a7ece89510c32ef166f17" id="infopanel-for-4a685d330d4a7ece89510c32ef166f17">
+   <span id="infopaneltitle-for-4a685d330d4a7ece89510c32ef166f17" style="display:none">Info about the 'body with type' external reference.</span><a href="https://fetch.spec.whatwg.org/#body-with-type">https://fetch.spec.whatwg.org/#body-with-type</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-body-with-type">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-bodyinit-extract">
-   <a href="https://fetch.spec.whatwg.org/#concept-bodyinit-extract">https://fetch.spec.whatwg.org/#concept-bodyinit-extract</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-7787119060824692ab15dee09dedb2f9" class="dfn-panel" data-for="7787119060824692ab15dee09dedb2f9" id="infopanel-for-7787119060824692ab15dee09dedb2f9">
+   <span id="infopaneltitle-for-7787119060824692ab15dee09dedb2f9" style="display:none">Info about the 'extract' external reference.</span><a href="https://fetch.spec.whatwg.org/#concept-bodyinit-extract">https://fetch.spec.whatwg.org/#concept-bodyinit-extract</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-bodyinit-extract">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-request">
-   <a href="https://fetch.spec.whatwg.org/#concept-request">https://fetch.spec.whatwg.org/#concept-request</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-491791562dd138987138e7051a96c07c" class="dfn-panel" data-for="491791562dd138987138e7051a96c07c" id="infopanel-for-491791562dd138987138e7051a96c07c">
+   <span id="infopaneltitle-for-491791562dd138987138e7051a96c07c" style="display:none">Info about the 'request' external reference.</span><a href="https://fetch.spec.whatwg.org/#concept-request">https://fetch.spec.whatwg.org/#concept-request</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-request">2.3. Sending beacons</a> <a href="#ref-for-concept-request①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-api-base-url">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url">https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-c882bc89f1141c15f3f863244b6a9ef0" class="dfn-panel" data-for="c882bc89f1141c15f3f863244b6a9ef0" id="infopanel-for-c882bc89f1141c15f3f863244b6a9ef0">
+   <span id="infopaneltitle-for-c882bc89f1141c15f3f863244b6a9ef0" style="display:none">Info about the 'api base url' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url">https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-api-base-url">4. The PendingBeacon interface</a> <a href="#ref-for-api-base-url①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-entry-settings-object">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-eb308764719479e6d79544cb3607bafd" class="dfn-panel" data-for="eb308764719479e6d79544cb3607bafd" id="infopanel-for-eb308764719479e6d79544cb3607bafd">
+   <span id="infopaneltitle-for-eb308764719479e6d79544cb3607bafd" style="display:none">Info about the 'entry settings object' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-entry-settings-object">2.3. Sending beacons</a> <a href="#ref-for-entry-settings-object①">(2)</a> <a href="#ref-for-entry-settings-object②">(3)</a>
     <li><a href="#ref-for-entry-settings-object③">4. The PendingBeacon interface</a> <a href="#ref-for-entry-settings-object④">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-origin">
-   <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">https://html.spec.whatwg.org/multipage/origin.html#concept-origin</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e66f9f7d45934e77669cb907bd0c7636" class="dfn-panel" data-for="e66f9f7d45934e77669cb907bd0c7636" id="infopanel-for-e66f9f7d45934e77669cb907bd0c7636">
+   <span id="infopaneltitle-for-e66f9f7d45934e77669cb907bd0c7636" style="display:none">Info about the 'origin' external reference.</span><a href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin">https://html.spec.whatwg.org/multipage/browsers.html#concept-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-origin">2.3. Sending beacons</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-boolean">
-   <a href="https://infra.spec.whatwg.org/#boolean">https://infra.spec.whatwg.org/#boolean</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-0d4cc8e47c65b15b2be5e5e730a09d3c" class="dfn-panel" data-for="0d4cc8e47c65b15b2be5e5e730a09d3c" id="infopanel-for-0d4cc8e47c65b15b2be5e5e730a09d3c">
+   <span id="infopaneltitle-for-0d4cc8e47c65b15b2be5e5e730a09d3c" style="display:none">Info about the 'boolean' external reference.</span><a href="https://infra.spec.whatwg.org/#boolean">https://infra.spec.whatwg.org/#boolean</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-boolean">2.1. Concepts</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-byte-sequence">
-   <a href="https://infra.spec.whatwg.org/#byte-sequence">https://infra.spec.whatwg.org/#byte-sequence</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-6a3d87a2ff9ed36e37a82055f7e141de" class="dfn-panel" data-for="6a3d87a2ff9ed36e37a82055f7e141de" id="infopanel-for-6a3d87a2ff9ed36e37a82055f7e141de">
+   <span id="infopaneltitle-for-6a3d87a2ff9ed36e37a82055f7e141de" style="display:none">Info about the 'byte sequence' external reference.</span><a href="https://infra.spec.whatwg.org/#byte-sequence">https://infra.spec.whatwg.org/#byte-sequence</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-byte-sequence">2.1. Concepts</a>
     <li><a href="#ref-for-byte-sequence①">2.2. Updating beacons</a>
     <li><a href="#ref-for-byte-sequence②">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-list">
-   <a href="https://infra.spec.whatwg.org/#list">https://infra.spec.whatwg.org/#list</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fafd38d2108e357bcc9a6fd7f3cd04a7" class="dfn-panel" data-for="fafd38d2108e357bcc9a6fd7f3cd04a7" id="infopanel-for-fafd38d2108e357bcc9a6fd7f3cd04a7">
+   <span id="infopaneltitle-for-fafd38d2108e357bcc9a6fd7f3cd04a7" style="display:none">Info about the 'list' external reference.</span><a href="https://infra.spec.whatwg.org/#list">https://infra.spec.whatwg.org/#list</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-list">2.3. Sending beacons</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-ordered-set">
-   <a href="https://infra.spec.whatwg.org/#ordered-set">https://infra.spec.whatwg.org/#ordered-set</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-80524ea4c0063fe3cf0b6c49a40e31bf" class="dfn-panel" data-for="80524ea4c0063fe3cf0b6c49a40e31bf" id="infopanel-for-80524ea4c0063fe3cf0b6c49a40e31bf">
+   <span id="infopaneltitle-for-80524ea4c0063fe3cf0b6c49a40e31bf" style="display:none">Info about the 'ordered set' external reference.</span><a href="https://infra.spec.whatwg.org/#ordered-set">https://infra.spec.whatwg.org/#ordered-set</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-ordered-set">2.1. Concepts</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-potentially-trustworthy-url">
-   <a href="https://w3c.github.io/webappsec-secure-contexts/#potentially-trustworthy-url">https://w3c.github.io/webappsec-secure-contexts/#potentially-trustworthy-url</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e944f8f8a45ba580c8641e9fd28b04fc" class="dfn-panel" data-for="e944f8f8a45ba580c8641e9fd28b04fc" id="infopanel-for-e944f8f8a45ba580c8641e9fd28b04fc">
+   <span id="infopaneltitle-for-e944f8f8a45ba580c8641e9fd28b04fc" style="display:none">Info about the 'potentially trustworthy url' external reference.</span><a href="https://w3c.github.io/webappsec-secure-contexts/#potentially-trustworthy-url">https://w3c.github.io/webappsec-secure-contexts/#potentially-trustworthy-url</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-potentially-trustworthy-url">2.2. Updating beacons</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-url">
-   <a href="https://url.spec.whatwg.org/#concept-url">https://url.spec.whatwg.org/#concept-url</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fc05c76e016d3aec6a25a91c066500c8" class="dfn-panel" data-for="fc05c76e016d3aec6a25a91c066500c8" id="infopanel-for-fc05c76e016d3aec6a25a91c066500c8">
+   <span id="infopaneltitle-for-fc05c76e016d3aec6a25a91c066500c8" style="display:none">Info about the 'url' external reference.</span><a href="https://url.spec.whatwg.org/#concept-url">https://url.spec.whatwg.org/#concept-url</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-url">2.1. Concepts</a>
     <li><a href="#ref-for-concept-url①">2.2. Updating beacons</a> <a href="#ref-for-concept-url②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-url-parser">
-   <a href="https://url.spec.whatwg.org/#concept-url-parser">https://url.spec.whatwg.org/#concept-url-parser</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-07df417653faafb38ece7480f2c15a3e" class="dfn-panel" data-for="07df417653faafb38ece7480f2c15a3e" id="infopanel-for-07df417653faafb38ece7480f2c15a3e">
+   <span id="infopaneltitle-for-07df417653faafb38ece7480f2c15a3e" style="display:none">Info about the 'url parser' external reference.</span><a href="https://url.spec.whatwg.org/#concept-url-parser">https://url.spec.whatwg.org/#concept-url-parser</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-url-parser">4. The PendingBeacon interface</a> <a href="#ref-for-concept-url-parser①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-urlencoded-serializer">
-   <a href="https://url.spec.whatwg.org/#concept-urlencoded-serializer">https://url.spec.whatwg.org/#concept-urlencoded-serializer</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-73c61edf262eecf67de65c7b17064590" class="dfn-panel" data-for="73c61edf262eecf67de65c7b17064590" id="infopanel-for-73c61edf262eecf67de65c7b17064590">
+   <span id="infopaneltitle-for-73c61edf262eecf67de65c7b17064590" style="display:none">Info about the 'urlencoded serializer' external reference.</span><a href="https://url.spec.whatwg.org/#concept-urlencoded-serializer">https://url.spec.whatwg.org/#concept-urlencoded-serializer</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-urlencoded-serializer">2.3. Sending beacons</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-valid-url-string">
-   <a href="https://url.spec.whatwg.org/#valid-url-string">https://url.spec.whatwg.org/#valid-url-string</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-6d4028bb929c687f13d9ee13e80ed9af" class="dfn-panel" data-for="6d4028bb929c687f13d9ee13e80ed9af" id="infopanel-for-6d4028bb929c687f13d9ee13e80ed9af">
+   <span id="infopaneltitle-for-6d4028bb929c687f13d9ee13e80ed9af" style="display:none">Info about the 'valid url string' external reference.</span><a href="https://url.spec.whatwg.org/#valid-url-string">https://url.spec.whatwg.org/#valid-url-string</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-valid-url-string">4. The PendingBeacon interface</a> <a href="#ref-for-valid-url-string①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-DOMException">
-   <a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-0ab204fb9cc9a746edaff83c0db0740a" class="dfn-panel" data-for="0ab204fb9cc9a746edaff83c0db0740a" id="infopanel-for-0ab204fb9cc9a746edaff83c0db0740a">
+   <span id="infopaneltitle-for-0ab204fb9cc9a746edaff83c0db0740a" style="display:none">Info about the 'DOMException' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-DOMException">4. The PendingBeacon interface</a> <a href="#ref-for-idl-DOMException①">(2)</a> <a href="#ref-for-idl-DOMException②">(3)</a> <a href="#ref-for-idl-DOMException③">(4)</a> <a href="#ref-for-idl-DOMException④">(5)</a> <a href="#ref-for-idl-DOMException⑤">(6)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-Exposed">
-   <a href="https://webidl.spec.whatwg.org/#Exposed">https://webidl.spec.whatwg.org/#Exposed</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dde049eb112f043fc45407ec0d4cb457" class="dfn-panel" data-for="dde049eb112f043fc45407ec0d4cb457" id="infopanel-for-dde049eb112f043fc45407ec0d4cb457">
+   <span id="infopaneltitle-for-dde049eb112f043fc45407ec0d4cb457" style="display:none">Info about the 'Exposed' external reference.</span><a href="https://webidl.spec.whatwg.org/#Exposed">https://webidl.spec.whatwg.org/#Exposed</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-Exposed">4. The PendingBeacon interface</a> <a href="#ref-for-Exposed①">(2)</a> <a href="#ref-for-Exposed②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-invalidstateerror">
-   <a href="https://webidl.spec.whatwg.org/#invalidstateerror">https://webidl.spec.whatwg.org/#invalidstateerror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e2a06375a2fb70c61a8b4cd0abe9d4f1" class="dfn-panel" data-for="e2a06375a2fb70c61a8b4cd0abe9d4f1" id="infopanel-for-e2a06375a2fb70c61a8b4cd0abe9d4f1">
+   <span id="infopaneltitle-for-e2a06375a2fb70c61a8b4cd0abe9d4f1" style="display:none">Info about the 'InvalidStateError' external reference.</span><a href="https://webidl.spec.whatwg.org/#invalidstateerror">https://webidl.spec.whatwg.org/#invalidstateerror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-invalidstateerror">4. The PendingBeacon interface</a> <a href="#ref-for-invalidstateerror①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-nomodificationallowederror">
-   <a href="https://webidl.spec.whatwg.org/#nomodificationallowederror">https://webidl.spec.whatwg.org/#nomodificationallowederror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-480cf5d933b3de4129adab33ee7e5ea8" class="dfn-panel" data-for="480cf5d933b3de4129adab33ee7e5ea8" id="infopanel-for-480cf5d933b3de4129adab33ee7e5ea8">
+   <span id="infopaneltitle-for-480cf5d933b3de4129adab33ee7e5ea8" style="display:none">Info about the 'NoModificationAllowedError' external reference.</span><a href="https://webidl.spec.whatwg.org/#nomodificationallowederror">https://webidl.spec.whatwg.org/#nomodificationallowederror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-nomodificationallowederror">4. The PendingBeacon interface</a> <a href="#ref-for-nomodificationallowederror①">(2)</a> <a href="#ref-for-nomodificationallowederror②">(3)</a> <a href="#ref-for-nomodificationallowederror③">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">
-   <a href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror">https://webidl.spec.whatwg.org/#exceptiondef-typeerror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-3f9c3eac015894a734faa8068fd8c2a1" class="dfn-panel" data-for="3f9c3eac015894a734faa8068fd8c2a1" id="infopanel-for-3f9c3eac015894a734faa8068fd8c2a1">
+   <span id="infopaneltitle-for-3f9c3eac015894a734faa8068fd8c2a1" style="display:none">Info about the 'TypeError' external reference.</span><a href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror">https://webidl.spec.whatwg.org/#exceptiondef-typeerror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-exceptiondef-typeerror">4. The PendingBeacon interface</a> <a href="#ref-for-exceptiondef-typeerror①">(2)</a> <a href="#ref-for-exceptiondef-typeerror②">(3)</a> <a href="#ref-for-exceptiondef-typeerror③">(4)</a> <a href="#ref-for-exceptiondef-typeerror④">(5)</a> <a href="#ref-for-exceptiondef-typeerror⑤">(6)</a> <a href="#ref-for-exceptiondef-typeerror⑥">(7)</a> <a href="#ref-for-exceptiondef-typeerror⑦">(8)</a> <a href="#ref-for-exceptiondef-typeerror⑧">(9)</a> <a href="#ref-for-exceptiondef-typeerror⑨">(10)</a> <a href="#ref-for-exceptiondef-typeerror①⓪">(11)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-USVString">
-   <a href="https://webidl.spec.whatwg.org/#idl-USVString">https://webidl.spec.whatwg.org/#idl-USVString</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e270bcd7cdb4abe27bc3bb16a1975937" class="dfn-panel" data-for="e270bcd7cdb4abe27bc3bb16a1975937" id="infopanel-for-e270bcd7cdb4abe27bc3bb16a1975937">
+   <span id="infopaneltitle-for-e270bcd7cdb4abe27bc3bb16a1975937" style="display:none">Info about the 'USVString' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-USVString">https://webidl.spec.whatwg.org/#idl-USVString</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-USVString">4. The PendingBeacon interface</a> <a href="#ref-for-idl-USVString①">(2)</a> <a href="#ref-for-idl-USVString②">(3)</a> <a href="#ref-for-idl-USVString③">(4)</a> <a href="#ref-for-idl-USVString④">(5)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-boolean">
-   <a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-f8062b07e25ed0281f5cbfb9a54070b4" class="dfn-panel" data-for="f8062b07e25ed0281f5cbfb9a54070b4" id="infopanel-for-f8062b07e25ed0281f5cbfb9a54070b4">
+   <span id="infopaneltitle-for-f8062b07e25ed0281f5cbfb9a54070b4" style="display:none">Info about the 'boolean' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-boolean">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-constructor-steps">
-   <a href="https://webidl.spec.whatwg.org/#constructor-steps">https://webidl.spec.whatwg.org/#constructor-steps</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-171903f0dd968509ea9f57ab4198e3dd" class="dfn-panel" data-for="171903f0dd968509ea9f57ab4198e3dd" id="infopanel-for-171903f0dd968509ea9f57ab4198e3dd">
+   <span id="infopaneltitle-for-171903f0dd968509ea9f57ab4198e3dd" style="display:none">Info about the 'constructor steps' external reference.</span><a href="https://webidl.spec.whatwg.org/#constructor-steps">https://webidl.spec.whatwg.org/#constructor-steps</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-constructor-steps">4. The PendingBeacon interface</a> <a href="#ref-for-constructor-steps①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-object">
-   <a href="https://webidl.spec.whatwg.org/#idl-object">https://webidl.spec.whatwg.org/#idl-object</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-5039223412f0d0a24ee17570f82d3d59" class="dfn-panel" data-for="5039223412f0d0a24ee17570f82d3d59" id="infopanel-for-5039223412f0d0a24ee17570f82d3d59">
+   <span id="infopaneltitle-for-5039223412f0d0a24ee17570f82d3d59" style="display:none">Info about the 'object' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-object">https://webidl.spec.whatwg.org/#idl-object</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-object">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-this">
-   <a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-be0933df03cd63338f98de217c4158c7" class="dfn-panel" data-for="be0933df03cd63338f98de217c4158c7" id="infopanel-for-be0933df03cd63338f98de217c4158c7">
+   <span id="infopaneltitle-for-be0933df03cd63338f98de217c4158c7" style="display:none">Info about the 'this' external reference.</span><a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-this">4. The PendingBeacon interface</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a> <a href="#ref-for-this⑤">(6)</a> <a href="#ref-for-this⑥">(7)</a> <a href="#ref-for-this⑦">(8)</a> <a href="#ref-for-this⑧">(9)</a> <a href="#ref-for-this⑨">(10)</a> <a href="#ref-for-this①⓪">(11)</a> <a href="#ref-for-this①①">(12)</a> <a href="#ref-for-this①②">(13)</a> <a href="#ref-for-this①③">(14)</a> <a href="#ref-for-this①④">(15)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-undefined">
-   <a href="https://webidl.spec.whatwg.org/#idl-undefined">https://webidl.spec.whatwg.org/#idl-undefined</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-cee863f1f2ec91066cfb7f5d309d59dc" class="dfn-panel" data-for="cee863f1f2ec91066cfb7f5d309d59dc" id="infopanel-for-cee863f1f2ec91066cfb7f5d309d59dc">
+   <span id="infopaneltitle-for-cee863f1f2ec91066cfb7f5d309d59dc" style="display:none">Info about the 'undefined' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-undefined">https://webidl.spec.whatwg.org/#idl-undefined</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-undefined">4. The PendingBeacon interface</a> <a href="#ref-for-idl-undefined①">(2)</a> <a href="#ref-for-idl-undefined②">(3)</a> <a href="#ref-for-idl-undefined③">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
-   <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long">https://webidl.spec.whatwg.org/#idl-unsigned-long</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-03fa8b99cc63b35d2e7dcadb686676f1" class="dfn-panel" data-for="03fa8b99cc63b35d2e7dcadb686676f1" id="infopanel-for-03fa8b99cc63b35d2e7dcadb686676f1">
+   <span id="infopaneltitle-for-03fa8b99cc63b35d2e7dcadb686676f1" style="display:none">Info about the 'unsigned long' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-unsigned-long">https://webidl.spec.whatwg.org/#idl-unsigned-long</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-unsigned-long">4. The PendingBeacon interface</a> <a href="#ref-for-idl-unsigned-long①">(2)</a> <a href="#ref-for-idl-unsigned-long②">(3)</a> <a href="#ref-for-idl-unsigned-long③">(4)</a>
    </ul>
@@ -1376,58 +1386,58 @@ prescribed mitigations.</p>
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-concept-document">document</span>
+     <li><span class="dfn-paneled" id="985c42e2af63b3e74bd3b70d55668fd4">document</span>
     </ul>
    <li>
     <a data-link-type="biblio">[FETCH]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-body-with-type">body with type</span>
-     <li><span class="dfn-paneled" id="term-for-concept-bodyinit-extract">extract</span>
-     <li><span class="dfn-paneled" id="term-for-concept-request">request</span>
+     <li><span class="dfn-paneled" id="4a685d330d4a7ece89510c32ef166f17">body with type</span>
+     <li><span class="dfn-paneled" id="7787119060824692ab15dee09dedb2f9">extract</span>
+     <li><span class="dfn-paneled" id="491791562dd138987138e7051a96c07c">request</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-api-base-url">api base url</span>
-     <li><span class="dfn-paneled" id="term-for-entry-settings-object">entry settings object</span>
-     <li><span class="dfn-paneled" id="term-for-concept-origin">origin</span>
+     <li><span class="dfn-paneled" id="c882bc89f1141c15f3f863244b6a9ef0">api base url</span>
+     <li><span class="dfn-paneled" id="eb308764719479e6d79544cb3607bafd">entry settings object</span>
+     <li><span class="dfn-paneled" id="e66f9f7d45934e77669cb907bd0c7636">origin</span>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-boolean">boolean</span>
-     <li><span class="dfn-paneled" id="term-for-byte-sequence">byte sequence</span>
-     <li><span class="dfn-paneled" id="term-for-list">list</span>
-     <li><span class="dfn-paneled" id="term-for-ordered-set">ordered set</span>
+     <li><span class="dfn-paneled" id="0d4cc8e47c65b15b2be5e5e730a09d3c">boolean</span>
+     <li><span class="dfn-paneled" id="6a3d87a2ff9ed36e37a82055f7e141de">byte sequence</span>
+     <li><span class="dfn-paneled" id="fafd38d2108e357bcc9a6fd7f3cd04a7">list</span>
+     <li><span class="dfn-paneled" id="80524ea4c0063fe3cf0b6c49a40e31bf">ordered set</span>
     </ul>
    <li>
     <a data-link-type="biblio">[SECURE-CONTEXTS]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-potentially-trustworthy-url">potentially trustworthy url</span>
+     <li><span class="dfn-paneled" id="e944f8f8a45ba580c8641e9fd28b04fc">potentially trustworthy url</span>
     </ul>
    <li>
     <a data-link-type="biblio">[URL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-concept-url">url</span>
-     <li><span class="dfn-paneled" id="term-for-concept-url-parser">url parser</span>
-     <li><span class="dfn-paneled" id="term-for-concept-urlencoded-serializer">urlencoded serializer</span>
-     <li><span class="dfn-paneled" id="term-for-valid-url-string">valid url string</span>
+     <li><span class="dfn-paneled" id="fc05c76e016d3aec6a25a91c066500c8">url</span>
+     <li><span class="dfn-paneled" id="07df417653faafb38ece7480f2c15a3e">url parser</span>
+     <li><span class="dfn-paneled" id="73c61edf262eecf67de65c7b17064590">urlencoded serializer</span>
+     <li><span class="dfn-paneled" id="6d4028bb929c687f13d9ee13e80ed9af">valid url string</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
-     <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
-     <li><span class="dfn-paneled" id="term-for-invalidstateerror">InvalidStateError</span>
-     <li><span class="dfn-paneled" id="term-for-nomodificationallowederror">NoModificationAllowedError</span>
-     <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
-     <li><span class="dfn-paneled" id="term-for-idl-USVString">USVString</span>
-     <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
-     <li><span class="dfn-paneled" id="term-for-constructor-steps">constructor steps</span>
-     <li><span class="dfn-paneled" id="term-for-idl-object">object</span>
-     <li><span class="dfn-paneled" id="term-for-this">this</span>
-     <li><span class="dfn-paneled" id="term-for-idl-undefined">undefined</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>
+     <li><span class="dfn-paneled" id="0ab204fb9cc9a746edaff83c0db0740a">DOMException</span>
+     <li><span class="dfn-paneled" id="dde049eb112f043fc45407ec0d4cb457">Exposed</span>
+     <li><span class="dfn-paneled" id="e2a06375a2fb70c61a8b4cd0abe9d4f1">InvalidStateError</span>
+     <li><span class="dfn-paneled" id="480cf5d933b3de4129adab33ee7e5ea8">NoModificationAllowedError</span>
+     <li><span class="dfn-paneled" id="3f9c3eac015894a734faa8068fd8c2a1">TypeError</span>
+     <li><span class="dfn-paneled" id="e270bcd7cdb4abe27bc3bb16a1975937">USVString</span>
+     <li><span class="dfn-paneled" id="f8062b07e25ed0281f5cbfb9a54070b4">boolean</span>
+     <li><span class="dfn-paneled" id="171903f0dd968509ea9f57ab4198e3dd">constructor steps</span>
+     <li><span class="dfn-paneled" id="5039223412f0d0a24ee17570f82d3d59">object</span>
+     <li><span class="dfn-paneled" id="be0933df03cd63338f98de217c4158c7">this</span>
+     <li><span class="dfn-paneled" id="cee863f1f2ec91066cfb7f5d309d59dc">undefined</span>
+     <li><span class="dfn-paneled" id="03fa8b99cc63b35d2e7dcadb686676f1">unsigned long</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1482,7 +1492,7 @@ prescribed mitigations.</p>
 <c- b>interface</c-> <a href="#pendinggetbeacon"><code><c- g>PendingGetBeacon</c-></code></a> : <a data-link-type="idl-name" href="#pendingbeacon"><c- n>PendingBeacon</c-></a> {
     <a class="idl-code" data-link-type="constructor" href="#dom-pendinggetbeacon-pendinggetbeacon"><c- g>constructor</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a href="#dom-pendinggetbeacon-pendinggetbeacon-url-options-url"><code><c- g>url</c-></code></a>, <c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-pendingbeaconoptions"><c- n>PendingBeaconOptions</c-></a> <a href="#dom-pendinggetbeacon-pendinggetbeacon-url-options-options"><code><c- g>options</c-></code></a> = {});
 
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a> <a class="idl-code" data-link-type="method" href="#dom-pendinggetbeacon-seturl"><c- g>setUrl</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a href="#dom-pendinggetbeacon-seturl-url-url"><code><c- g>url</c-></code></a>);
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a> <a class="idl-code" data-link-type="method" href="#dom-pendinggetbeacon-seturl"><c- g>setURL</c-></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a href="#dom-pendinggetbeacon-seturl-url-url"><code><c- g>url</c-></code></a>);
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->, <c- n>Worker</c->)]
@@ -1505,7 +1515,7 @@ here, and this should integrate with the permissions API. <a class="issue-return
    <div class="issue"> "discarded" is not well defined. <a class="issue-return" href="#issue-b8b038f0" title="Jump to section">↵</a></div>
    <div class="issue"> The concepts of "process" and "crashes" are not well defined. <a class="issue-return" href="#issue-b08b9417" title="Jump to section">↵</a></div>
    <div class="issue"> "visibility state change" should be more specific here, and should refer
-to specific steps in either <a data-link-type="biblio" href="#biblio-page-visibility">[PAGE-VISIBILITY]</a> or <a data-link-type="biblio" href="#biblio-html">[HTML]</a> <a class="issue-return" href="#issue-fa8ec208" title="Jump to section">↵</a></div>
+to specific steps in either <a data-link-type="biblio" href="#biblio-page-visibility" title="Page Visibility (Second Edition)">[PAGE-VISIBILITY]</a> or <a data-link-type="biblio" href="#biblio-html" title="HTML Standard">[HTML]</a> <a class="issue-return" href="#issue-fa8ec208" title="Jump to section">↵</a></div>
    <div class="issue"> This should also disable any foreground timers for the document’s beacons,
 and there should be a step to reinstate them if the document becomes visible
 again before they are sent. <a class="issue-return" href="#issue-395f3e6b" title="Jump to section">↵</a></div>
@@ -1513,8 +1523,8 @@ again before they are sent. <a class="issue-return" href="#issue-395f3e6b" title
 enough detail to accurately describe the privacy issues and suggested or
 prescribed mitigations. <a class="issue-return" href="#issue-f9fb6d4e" title="Jump to section">↵</a></div>
   </div>
-  <aside class="dfn-panel" data-for="pending-beacon">
-   <b><a href="#pending-beacon">#pending-beacon</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon" class="dfn-panel" data-for="pending-beacon" id="infopanel-for-pending-beacon">
+   <span id="infopaneltitle-for-pending-beacon" style="display:none">Info about the 'pending beacon' definition.</span><b><a href="#pending-beacon">#pending-beacon</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon">2.1. Concepts</a> <a href="#ref-for-pending-beacon①">(2)</a> <a href="#ref-for-pending-beacon②">(3)</a> <a href="#ref-for-pending-beacon③">(4)</a> <a href="#ref-for-pending-beacon④">(5)</a> <a href="#ref-for-pending-beacon⑤">(6)</a> <a href="#ref-for-pending-beacon⑥">(7)</a>
     <li><a href="#ref-for-pending-beacon⑦">2.2. Updating beacons</a> <a href="#ref-for-pending-beacon⑧">(2)</a>
@@ -1523,38 +1533,38 @@ prescribed mitigations. <a class="issue-return" href="#issue-f9fb6d4e" title="Ju
     <li><a href="#ref-for-pending-beacon①①">4. The PendingBeacon interface</a> <a href="#ref-for-pending-beacon①②">(2)</a> <a href="#ref-for-pending-beacon①③">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-url">
-   <b><a href="#pending-beacon-url">#pending-beacon-url</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-url" class="dfn-panel" data-for="pending-beacon-url" id="infopanel-for-pending-beacon-url">
+   <span id="infopaneltitle-for-pending-beacon-url" style="display:none">Info about the 'url' definition.</span><b><a href="#pending-beacon-url">#pending-beacon-url</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-url">2.2. Updating beacons</a>
     <li><a href="#ref-for-pending-beacon-url①">2.3. Sending beacons</a> <a href="#ref-for-pending-beacon-url②">(2)</a>
     <li><a href="#ref-for-pending-beacon-url③">4. The PendingBeacon interface</a> <a href="#ref-for-pending-beacon-url④">(2)</a> <a href="#ref-for-pending-beacon-url⑤">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-method">
-   <b><a href="#pending-beacon-method">#pending-beacon-method</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-method" class="dfn-panel" data-for="pending-beacon-method" id="infopanel-for-pending-beacon-method">
+   <span id="infopaneltitle-for-pending-beacon-method" style="display:none">Info about the 'method' definition.</span><b><a href="#pending-beacon-method">#pending-beacon-method</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-method">2.3. Sending beacons</a>
     <li><a href="#ref-for-pending-beacon-method①">4. The PendingBeacon interface</a> <a href="#ref-for-pending-beacon-method②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-foreground-timeout">
-   <b><a href="#pending-beacon-foreground-timeout">#pending-beacon-foreground-timeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-foreground-timeout" class="dfn-panel" data-for="pending-beacon-foreground-timeout" id="infopanel-for-pending-beacon-foreground-timeout">
+   <span id="infopaneltitle-for-pending-beacon-foreground-timeout" style="display:none">Info about the 'foreground timeout' definition.</span><b><a href="#pending-beacon-foreground-timeout">#pending-beacon-foreground-timeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-foreground-timeout">2.2. Updating beacons</a>
     <li><a href="#ref-for-pending-beacon-foreground-timeout①">4. The PendingBeacon interface</a> <a href="#ref-for-pending-beacon-foreground-timeout②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-background-timeout">
-   <b><a href="#pending-beacon-background-timeout">#pending-beacon-background-timeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-background-timeout" class="dfn-panel" data-for="pending-beacon-background-timeout" id="infopanel-for-pending-beacon-background-timeout">
+   <span id="infopaneltitle-for-pending-beacon-background-timeout" style="display:none">Info about the 'background timeout' definition.</span><b><a href="#pending-beacon-background-timeout">#pending-beacon-background-timeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-background-timeout">2.2. Updating beacons</a>
     <li><a href="#ref-for-pending-beacon-background-timeout①">3. Integration with HTML</a>
     <li><a href="#ref-for-pending-beacon-background-timeout②">4. The PendingBeacon interface</a> <a href="#ref-for-pending-beacon-background-timeout③">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-is_pending">
-   <b><a href="#pending-beacon-is_pending">#pending-beacon-is_pending</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-is_pending" class="dfn-panel" data-for="pending-beacon-is_pending" id="infopanel-for-pending-beacon-is_pending">
+   <span id="infopaneltitle-for-pending-beacon-is_pending" style="display:none">Info about the 'is_pending' definition.</span><b><a href="#pending-beacon-is_pending">#pending-beacon-is_pending</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-is_pending">2.2. Updating beacons</a> <a href="#ref-for-pending-beacon-is_pending①">(2)</a> <a href="#ref-for-pending-beacon-is_pending②">(3)</a> <a href="#ref-for-pending-beacon-is_pending③">(4)</a> <a href="#ref-for-pending-beacon-is_pending④">(5)</a>
     <li><a href="#ref-for-pending-beacon-is_pending⑤">2.3. Sending beacons</a> <a href="#ref-for-pending-beacon-is_pending⑥">(2)</a>
@@ -1562,250 +1572,305 @@ prescribed mitigations. <a class="issue-return" href="#issue-f9fb6d4e" title="Ju
     <li><a href="#ref-for-pending-beacon-is_pending⑧">4. The PendingBeacon interface</a> <a href="#ref-for-pending-beacon-is_pending⑨">(2)</a> <a href="#ref-for-pending-beacon-is_pending①⓪">(3)</a> <a href="#ref-for-pending-beacon-is_pending①①">(4)</a> <a href="#ref-for-pending-beacon-is_pending①②">(5)</a> <a href="#ref-for-pending-beacon-is_pending①③">(6)</a> <a href="#ref-for-pending-beacon-is_pending①④">(7)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-payload">
-   <b><a href="#pending-beacon-payload">#pending-beacon-payload</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-payload" class="dfn-panel" data-for="pending-beacon-payload" id="infopanel-for-pending-beacon-payload">
+   <span id="infopaneltitle-for-pending-beacon-payload" style="display:none">Info about the 'payload' definition.</span><b><a href="#pending-beacon-payload">#pending-beacon-payload</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-payload">2.2. Updating beacons</a>
     <li><a href="#ref-for-pending-beacon-payload①">2.3. Sending beacons</a> <a href="#ref-for-pending-beacon-payload②">(2)</a>
     <li><a href="#ref-for-pending-beacon-payload③">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="document-pending-beacon-set">
-   <b><a href="#document-pending-beacon-set">#document-pending-beacon-set</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-document-pending-beacon-set" class="dfn-panel" data-for="document-pending-beacon-set" id="infopanel-for-document-pending-beacon-set">
+   <span id="infopaneltitle-for-document-pending-beacon-set" style="display:none">Info about the 'pending beacon set' definition.</span><b><a href="#document-pending-beacon-set">#document-pending-beacon-set</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-document-pending-beacon-set">2.1. Concepts</a>
     <li><a href="#ref-for-document-pending-beacon-set①">2.3. Sending beacons</a>
     <li><a href="#ref-for-document-pending-beacon-set②">3. Integration with HTML</a> <a href="#ref-for-document-pending-beacon-set③">(2)</a> <a href="#ref-for-document-pending-beacon-set④">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-set-the-url">
-   <b><a href="#pending-beacon-set-the-url">#pending-beacon-set-the-url</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-set-the-url" class="dfn-panel" data-for="pending-beacon-set-the-url" id="infopanel-for-pending-beacon-set-the-url">
+   <span id="infopaneltitle-for-pending-beacon-set-the-url" style="display:none">Info about the 'set the url' definition.</span><b><a href="#pending-beacon-set-the-url">#pending-beacon-set-the-url</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-set-the-url">4. The PendingBeacon interface</a> <a href="#ref-for-pending-beacon-set-the-url①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-set-the-foreground-timeout">
-   <b><a href="#pending-beacon-set-the-foreground-timeout">#pending-beacon-set-the-foreground-timeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-set-the-foreground-timeout" class="dfn-panel" data-for="pending-beacon-set-the-foreground-timeout" id="infopanel-for-pending-beacon-set-the-foreground-timeout">
+   <span id="infopaneltitle-for-pending-beacon-set-the-foreground-timeout" style="display:none">Info about the 'set the foreground timeout' definition.</span><b><a href="#pending-beacon-set-the-foreground-timeout">#pending-beacon-set-the-foreground-timeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-set-the-foreground-timeout">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-set-the-background-timeout">
-   <b><a href="#pending-beacon-set-the-background-timeout">#pending-beacon-set-the-background-timeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-set-the-background-timeout" class="dfn-panel" data-for="pending-beacon-set-the-background-timeout" id="infopanel-for-pending-beacon-set-the-background-timeout">
+   <span id="infopaneltitle-for-pending-beacon-set-the-background-timeout" style="display:none">Info about the 'set the background timeout' definition.</span><b><a href="#pending-beacon-set-the-background-timeout">#pending-beacon-set-the-background-timeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-set-the-background-timeout">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-set-the-payload">
-   <b><a href="#pending-beacon-set-the-payload">#pending-beacon-set-the-payload</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-set-the-payload" class="dfn-panel" data-for="pending-beacon-set-the-payload" id="infopanel-for-pending-beacon-set-the-payload">
+   <span id="infopaneltitle-for-pending-beacon-set-the-payload" style="display:none">Info about the 'set the payload' definition.</span><b><a href="#pending-beacon-set-the-payload">#pending-beacon-set-the-payload</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-set-the-payload">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pending-beacon-cancel">
-   <b><a href="#pending-beacon-cancel">#pending-beacon-cancel</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pending-beacon-cancel" class="dfn-panel" data-for="pending-beacon-cancel" id="infopanel-for-pending-beacon-cancel">
+   <span id="infopaneltitle-for-pending-beacon-cancel" style="display:none">Info about the 'cancel' definition.</span><b><a href="#pending-beacon-cancel">#pending-beacon-cancel</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pending-beacon-cancel">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="send-a-documents-beacons">
-   <b><a href="#send-a-documents-beacons">#send-a-documents-beacons</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-send-a-documents-beacons" class="dfn-panel" data-for="send-a-documents-beacons" id="infopanel-for-send-a-documents-beacons">
+   <span id="infopaneltitle-for-send-a-documents-beacons" style="display:none">Info about the 'send a document’s beacons' definition.</span><b><a href="#send-a-documents-beacons">#send-a-documents-beacons</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-send-a-documents-beacons">3. Integration with HTML</a> <a href="#ref-for-send-a-documents-beacons①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="send-a-queued-pending-beacon">
-   <b><a href="#send-a-queued-pending-beacon">#send-a-queued-pending-beacon</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-send-a-queued-pending-beacon" class="dfn-panel" data-for="send-a-queued-pending-beacon" id="infopanel-for-send-a-queued-pending-beacon">
+   <span id="infopaneltitle-for-send-a-queued-pending-beacon" style="display:none">Info about the 'send a queued pending beacon' definition.</span><b><a href="#send-a-queued-pending-beacon">#send-a-queued-pending-beacon</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-send-a-queued-pending-beacon">2.3. Sending beacons</a>
     <li><a href="#ref-for-send-a-queued-pending-beacon①">3. Integration with HTML</a>
     <li><a href="#ref-for-send-a-queued-pending-beacon②">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="send-a-pending-beacon-over-get">
-   <b><a href="#send-a-pending-beacon-over-get">#send-a-pending-beacon-over-get</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-send-a-pending-beacon-over-get" class="dfn-panel" data-for="send-a-pending-beacon-over-get" id="infopanel-for-send-a-pending-beacon-over-get">
+   <span id="infopaneltitle-for-send-a-pending-beacon-over-get" style="display:none">Info about the 'send a pending beacon over GET' definition.</span><b><a href="#send-a-pending-beacon-over-get">#send-a-pending-beacon-over-get</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-send-a-pending-beacon-over-get">2.3. Sending beacons</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="send-a-pending-beacon-over-post">
-   <b><a href="#send-a-pending-beacon-over-post">#send-a-pending-beacon-over-post</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-send-a-pending-beacon-over-post" class="dfn-panel" data-for="send-a-pending-beacon-over-post" id="infopanel-for-send-a-pending-beacon-over-post">
+   <span id="infopaneltitle-for-send-a-pending-beacon-over-post" style="display:none">Info about the 'send a pending beacon over POST' definition.</span><b><a href="#send-a-pending-beacon-over-post">#send-a-pending-beacon-over-post</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-send-a-pending-beacon-over-post">2.3. Sending beacons</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="enumdef-beaconmethod">
-   <b><a href="#enumdef-beaconmethod">#enumdef-beaconmethod</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-enumdef-beaconmethod" class="dfn-panel" data-for="enumdef-beaconmethod" id="infopanel-for-enumdef-beaconmethod">
+   <span id="infopaneltitle-for-enumdef-beaconmethod" style="display:none">Info about the 'BeaconMethod' definition.</span><b><a href="#enumdef-beaconmethod">#enumdef-beaconmethod</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-enumdef-beaconmethod">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-pendingbeaconoptions">
-   <b><a href="#dictdef-pendingbeaconoptions">#dictdef-pendingbeaconoptions</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dictdef-pendingbeaconoptions" class="dfn-panel" data-for="dictdef-pendingbeaconoptions" id="infopanel-for-dictdef-pendingbeaconoptions">
+   <span id="infopaneltitle-for-dictdef-pendingbeaconoptions" style="display:none">Info about the 'PendingBeaconOptions' definition.</span><b><a href="#dictdef-pendingbeaconoptions">#dictdef-pendingbeaconoptions</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-pendingbeaconoptions">4. The PendingBeacon interface</a> <a href="#ref-for-dictdef-pendingbeaconoptions①">(2)</a> <a href="#ref-for-dictdef-pendingbeaconoptions②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeaconoptions-timeout">
-   <b><a href="#dom-pendingbeaconoptions-timeout">#dom-pendingbeaconoptions-timeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeaconoptions-timeout" class="dfn-panel" data-for="dom-pendingbeaconoptions-timeout" id="infopanel-for-dom-pendingbeaconoptions-timeout">
+   <span id="infopaneltitle-for-dom-pendingbeaconoptions-timeout" style="display:none">Info about the 'timeout' definition.</span><b><a href="#dom-pendingbeaconoptions-timeout">#dom-pendingbeaconoptions-timeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeaconoptions-timeout">4. The PendingBeacon interface</a> <a href="#ref-for-dom-pendingbeaconoptions-timeout①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeaconoptions-backgroundtimeout">
-   <b><a href="#dom-pendingbeaconoptions-backgroundtimeout">#dom-pendingbeaconoptions-backgroundtimeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeaconoptions-backgroundtimeout" class="dfn-panel" data-for="dom-pendingbeaconoptions-backgroundtimeout" id="infopanel-for-dom-pendingbeaconoptions-backgroundtimeout">
+   <span id="infopaneltitle-for-dom-pendingbeaconoptions-backgroundtimeout" style="display:none">Info about the 'backgroundTimeout' definition.</span><b><a href="#dom-pendingbeaconoptions-backgroundtimeout">#dom-pendingbeaconoptions-backgroundtimeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeaconoptions-backgroundtimeout">4. The PendingBeacon interface</a> <a href="#ref-for-dom-pendingbeaconoptions-backgroundtimeout①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pendingbeacon">
-   <b><a href="#pendingbeacon">#pendingbeacon</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pendingbeacon" class="dfn-panel" data-for="pendingbeacon" id="infopanel-for-pendingbeacon">
+   <span id="infopaneltitle-for-pendingbeacon" style="display:none">Info about the 'PendingBeacon' definition.</span><b><a href="#pendingbeacon">#pendingbeacon</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pendingbeacon">4. The PendingBeacon interface</a> <a href="#ref-for-pendingbeacon①">(2)</a> <a href="#ref-for-pendingbeacon②">(3)</a> <a href="#ref-for-pendingbeacon③">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pendingbeacon-beacon">
-   <b><a href="#pendingbeacon-beacon">#pendingbeacon-beacon</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pendingbeacon-beacon" class="dfn-panel" data-for="pendingbeacon-beacon" id="infopanel-for-pendingbeacon-beacon">
+   <span id="infopaneltitle-for-pendingbeacon-beacon" style="display:none">Info about the 'beacon' definition.</span><b><a href="#pendingbeacon-beacon">#pendingbeacon-beacon</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pendingbeacon-beacon">4. The PendingBeacon interface</a> <a href="#ref-for-pendingbeacon-beacon①">(2)</a> <a href="#ref-for-pendingbeacon-beacon②">(3)</a> <a href="#ref-for-pendingbeacon-beacon③">(4)</a> <a href="#ref-for-pendingbeacon-beacon④">(5)</a> <a href="#ref-for-pendingbeacon-beacon⑤">(6)</a> <a href="#ref-for-pendingbeacon-beacon⑥">(7)</a> <a href="#ref-for-pendingbeacon-beacon⑦">(8)</a> <a href="#ref-for-pendingbeacon-beacon⑧">(9)</a> <a href="#ref-for-pendingbeacon-beacon⑨">(10)</a> <a href="#ref-for-pendingbeacon-beacon①⓪">(11)</a> <a href="#ref-for-pendingbeacon-beacon①①">(12)</a> <a href="#ref-for-pendingbeacon-beacon①②">(13)</a> <a href="#ref-for-pendingbeacon-beacon①③">(14)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendinggetbeacon-pendinggetbeacon">
-   <b><a href="#dom-pendinggetbeacon-pendinggetbeacon">#dom-pendinggetbeacon-pendinggetbeacon</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendinggetbeacon-pendinggetbeacon" class="dfn-panel" data-for="dom-pendinggetbeacon-pendinggetbeacon" id="infopanel-for-dom-pendinggetbeacon-pendinggetbeacon">
+   <span id="infopaneltitle-for-dom-pendinggetbeacon-pendinggetbeacon" style="display:none">Info about the 'new PendingGetBeacon(url, options)' definition.</span><b><a href="#dom-pendinggetbeacon-pendinggetbeacon">#dom-pendinggetbeacon-pendinggetbeacon</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendinggetbeacon-pendinggetbeacon">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingpostbeacon-pendingpostbeacon">
-   <b><a href="#dom-pendingpostbeacon-pendingpostbeacon">#dom-pendingpostbeacon-pendingpostbeacon</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingpostbeacon-pendingpostbeacon" class="dfn-panel" data-for="dom-pendingpostbeacon-pendingpostbeacon" id="infopanel-for-dom-pendingpostbeacon-pendingpostbeacon">
+   <span id="infopaneltitle-for-dom-pendingpostbeacon-pendingpostbeacon" style="display:none">Info about the 'new PendingPostBeacon(url, options)' definition.</span><b><a href="#dom-pendingpostbeacon-pendingpostbeacon">#dom-pendingpostbeacon-pendingpostbeacon</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingpostbeacon-pendingpostbeacon">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="pendingbeacon-common-beacon-initialization-steps">
-   <b><a href="#pendingbeacon-common-beacon-initialization-steps">#pendingbeacon-common-beacon-initialization-steps</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-pendingbeacon-common-beacon-initialization-steps" class="dfn-panel" data-for="pendingbeacon-common-beacon-initialization-steps" id="infopanel-for-pendingbeacon-common-beacon-initialization-steps">
+   <span id="infopaneltitle-for-pendingbeacon-common-beacon-initialization-steps" style="display:none">Info about the 'common beacon initialization steps' definition.</span><b><a href="#pendingbeacon-common-beacon-initialization-steps">#pendingbeacon-common-beacon-initialization-steps</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-pendingbeacon-common-beacon-initialization-steps">4. The PendingBeacon interface</a> <a href="#ref-for-pendingbeacon-common-beacon-initialization-steps①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeacon-url">
-   <b><a href="#dom-pendingbeacon-url">#dom-pendingbeacon-url</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeacon-url" class="dfn-panel" data-for="dom-pendingbeacon-url" id="infopanel-for-dom-pendingbeacon-url">
+   <span id="infopaneltitle-for-dom-pendingbeacon-url" style="display:none">Info about the 'url' definition.</span><b><a href="#dom-pendingbeacon-url">#dom-pendingbeacon-url</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeacon-url">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeacon-method">
-   <b><a href="#dom-pendingbeacon-method">#dom-pendingbeacon-method</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeacon-method" class="dfn-panel" data-for="dom-pendingbeacon-method" id="infopanel-for-dom-pendingbeacon-method">
+   <span id="infopaneltitle-for-dom-pendingbeacon-method" style="display:none">Info about the 'method' definition.</span><b><a href="#dom-pendingbeacon-method">#dom-pendingbeacon-method</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeacon-method">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeacon-timeout">
-   <b><a href="#dom-pendingbeacon-timeout">#dom-pendingbeacon-timeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeacon-timeout" class="dfn-panel" data-for="dom-pendingbeacon-timeout" id="infopanel-for-dom-pendingbeacon-timeout">
+   <span id="infopaneltitle-for-dom-pendingbeacon-timeout" style="display:none">Info about the 'timeout' definition.</span><b><a href="#dom-pendingbeacon-timeout">#dom-pendingbeacon-timeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeacon-timeout">4. The PendingBeacon interface</a> <a href="#ref-for-dom-pendingbeacon-timeout①">(2)</a> <a href="#ref-for-dom-pendingbeacon-timeout②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeacon-backgroundtimeout">
-   <b><a href="#dom-pendingbeacon-backgroundtimeout">#dom-pendingbeacon-backgroundtimeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeacon-backgroundtimeout" class="dfn-panel" data-for="dom-pendingbeacon-backgroundtimeout" id="infopanel-for-dom-pendingbeacon-backgroundtimeout">
+   <span id="infopaneltitle-for-dom-pendingbeacon-backgroundtimeout" style="display:none">Info about the 'backgroundTimeout' definition.</span><b><a href="#dom-pendingbeacon-backgroundtimeout">#dom-pendingbeacon-backgroundtimeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeacon-backgroundtimeout">4. The PendingBeacon interface</a> <a href="#ref-for-dom-pendingbeacon-backgroundtimeout①">(2)</a> <a href="#ref-for-dom-pendingbeacon-backgroundtimeout②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeacon-pending">
-   <b><a href="#dom-pendingbeacon-pending">#dom-pendingbeacon-pending</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeacon-pending" class="dfn-panel" data-for="dom-pendingbeacon-pending" id="infopanel-for-dom-pendingbeacon-pending">
+   <span id="infopaneltitle-for-dom-pendingbeacon-pending" style="display:none">Info about the 'pending' definition.</span><b><a href="#dom-pendingbeacon-pending">#dom-pendingbeacon-pending</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeacon-pending">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeacon-deactivate">
-   <b><a href="#dom-pendingbeacon-deactivate">#dom-pendingbeacon-deactivate</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeacon-deactivate" class="dfn-panel" data-for="dom-pendingbeacon-deactivate" id="infopanel-for-dom-pendingbeacon-deactivate">
+   <span id="infopaneltitle-for-dom-pendingbeacon-deactivate" style="display:none">Info about the 'deactivate()' definition.</span><b><a href="#dom-pendingbeacon-deactivate">#dom-pendingbeacon-deactivate</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeacon-deactivate">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingbeacon-sendnow">
-   <b><a href="#dom-pendingbeacon-sendnow">#dom-pendingbeacon-sendnow</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingbeacon-sendnow" class="dfn-panel" data-for="dom-pendingbeacon-sendnow" id="infopanel-for-dom-pendingbeacon-sendnow">
+   <span id="infopaneltitle-for-dom-pendingbeacon-sendnow" style="display:none">Info about the 'sendNow()' definition.</span><b><a href="#dom-pendingbeacon-sendnow">#dom-pendingbeacon-sendnow</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingbeacon-sendnow">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendinggetbeacon-seturl">
-   <b><a href="#dom-pendinggetbeacon-seturl">#dom-pendinggetbeacon-seturl</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendinggetbeacon-seturl" class="dfn-panel" data-for="dom-pendinggetbeacon-seturl" id="infopanel-for-dom-pendinggetbeacon-seturl">
+   <span id="infopaneltitle-for-dom-pendinggetbeacon-seturl" style="display:none">Info about the 'setURL(url)' definition.</span><b><a href="#dom-pendinggetbeacon-seturl">#dom-pendinggetbeacon-seturl</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendinggetbeacon-seturl">4. The PendingBeacon interface</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-pendingpostbeacon-setdata">
-   <b><a href="#dom-pendingpostbeacon-setdata">#dom-pendingpostbeacon-setdata</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-pendingpostbeacon-setdata" class="dfn-panel" data-for="dom-pendingpostbeacon-setdata" id="infopanel-for-dom-pendingpostbeacon-setdata">
+   <span id="infopaneltitle-for-dom-pendingpostbeacon-setdata" style="display:none">Info about the 'setData(data)' definition.</span><b><a href="#dom-pendingpostbeacon-setdata">#dom-pendingpostbeacon-setdata</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-pendingpostbeacon-setdata">4. The PendingBeacon interface</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
-
-document.body.addEventListener("click", function(e) {
-    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-    // Find the dfn element or panel, if any, that was clicked on.
-    var el = e.target;
-    var target;
-    var hitALink = false;
-    while(el.parentElement) {
-        if(el.tagName == "A") {
-            // Clicking on a link in a <dfn> shouldn't summon the panel
-            hitALink = true;
-        }
-        if(el.classList.contains("dfn-paneled")) {
-            target = "dfn";
-            break;
-        }
-        if(el.classList.contains("dfn-panel")) {
-            target = "dfn-panel";
-            break;
-        }
-        el = el.parentElement;
+"use strict";
+{
+    function queryAll(sel) {
+        return [].slice.call(document.querySelectorAll(sel));
     }
-    if(target != "dfn-panel") {
+
+    // Add popup behavior to all dfns to show the corresponding dfn-panel.
+    var dfns = document.querySelectorAll('.dfn-paneled');
+    for (let dfn of dfns) { insertDfnPopupAction(dfn); }
+
+    document.body.addEventListener("click", (e) => {
+        // If not handled already, just hide all dfn panels.
+        hideAllDfnPanels();
+    });
+
+    function hideAllDfnPanels() {
         // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-            el.classList.remove("on");
-            el.classList.remove("activated");
-        });
-    }
-    if(target == "dfn" && !hitALink) {
-        // open the panel
-        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-        if(dfnPanel) {
-            dfnPanel.classList.add("on");
-            var rect = el.getBoundingClientRect();
-            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-            dfnPanel.style.top = window.scrollY + rect.top + "px";
-            var panelRect = dfnPanel.getBoundingClientRect();
-            var panelWidth = panelRect.right - panelRect.left;
-            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                // Reposition, because the panel is overflowing
-                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-            }
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-        }
-    } else if(target == "dfn-panel") {
-        // Switch it to "activated" state, which pins it.
-        el.classList.add("activated");
-        el.style.left = null;
-        el.style.top = null;
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
     }
 
-});
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn) {
+        // Find dfn panel
+        const dfnPanel = document.querySelector(`.dfn-panel[data-for='${dfn.id}']`);
+        if (dfnPanel) {
+            const panelWrapper = document.createElement('span');
+            panelWrapper.appendChild(dfnPanel);
+            panelWrapper.style.position = "relative";
+            panelWrapper.style.height = "0px";
+            dfn.insertAdjacentElement("afterend", panelWrapper);
+            dfn.setAttribute('role', 'button');
+            dfn.setAttribute('aria-expanded', 'false')
+            dfn.tabIndex = 0;
+            dfn.classList.add('has-dfn-panel');
+            dfn.addEventListener('click', (event) => {
+                showDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+            });
+            dfn.addEventListener('keypress', (event) => {
+                const kc = event.keyCode;
+                // 32->Space, 13->Enter
+                if(kc == 32 || kc == 13) {
+                    toggleDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            });
+
+            dfnPanel.addEventListener('click', (event) => {
+                pinDfnPanel(dfnPanel);
+                event.stopPropagation();
+            });
+
+            dfnPanel.addEventListener('keydown', (event) => {
+                if(event.keyCode == 27) { // Escape key
+                    hideDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            })
+
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + dfn.id + "']");
+        }
+    }
+}
 </script>
 <script>/* script-var-click-highlighting */
 
-    document.addEventListener("click", e=>{
-        if(e.target.nodeName == "VAR") {
-            highlightSameAlgoVars(e.target);
-        }
-    });
+    "use strict";
     {
+        document.addEventListener("click", e=>{
+            if(e.target.nodeName == "VAR") {
+                highlightSameAlgoVars(e.target);
+            }
+        });
         const indexCounts = new Map();
         const indexNames = new Map();
         function highlightSameAlgoVars(v) {
